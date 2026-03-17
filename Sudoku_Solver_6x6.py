@@ -18,7 +18,6 @@ class SudokuVisualizer(ctk.CTk):
             [0, 4, 0, 0, 5, 0]
         ]
         
-        # Menyimpan widget label untuk diupdate nanti
         self.cells = [[None for _ in range(6)] for _ in range(6)]
         
         # UI Setup
@@ -39,17 +38,16 @@ class SudokuVisualizer(ctk.CTk):
     def create_grid(self):
         for r in range(6):
             for c in range(6):
-                # Membuat visual kotak 2x3 dengan padding ekstra
                 padx_val = (1, 1)
                 pady_val = (1, 1)
                 
                 if c % 3 == 0 and c != 0: padx_val = (5, 1)
-                if r % 2 == 0 and r != 0: pady_val = (5, 1) # Untuk ukuran 6x6, pemisah baris ada di setiap 2 baris (bukan 3)
+                if r % 2 == 0 and r != 0: pady_val = (5, 1)
 
                 val = self.board[r][c]
                 text = str(val) if val != 0 else ""
                 
-                # Gunakan warna berbeda untuk angka bawaan
+                # Warna berbeda untuk angka bawaan
                 color = "#3498db" if val != 0 else "#ffffff"
                 
                 cell = ctk.CTkLabel(
@@ -77,7 +75,6 @@ class SudokuVisualizer(ctk.CTk):
             if self.board[r][i] == num or self.board[i][c] == num:
                 return False
         
-        # Cek kotak 2x3 (6 buah kotak untuk grid 6x6)
         start_r, start_c = (r // 2) * 2, (c // 3) * 3
         for i in range(2):
             for j in range(3):
@@ -91,7 +88,6 @@ class SudokuVisualizer(ctk.CTk):
                 if self.board[r][c] == 0:
                     for num in range(1, 7): # Sudoku 6x6 menggunakan angka 1-6
                         if self.is_valid(r, c, num):
-                            # Update data & GUI
                             self.board[r][c] = num
                             self.cells[r][c].configure(text=str(num), text_color="#2ecc71")
                             self.update()
